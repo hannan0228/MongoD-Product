@@ -73,7 +73,7 @@ router.delete('/delete/:id', async (req, res) => {
 })
 
 //delete quatity using productId
-router.post('/bulkupdate', async (req, res) => {
+router.post('/updateByProductIds', async (req, res) => {
 
 // Dummy data
     /* {
@@ -86,15 +86,13 @@ const { productIds, quantities } = req.body;
 
   try {
 
-    //   
       let ids = await Model.find({}, {productId: 1,_id:0}).lean();
       const filteredArray = productIds.filter(item => {
         return ids.some(obj => obj['productId'] === item);
       });
-           console.log(filteredArray);
+         
            
            const result = productIds.filter((num) => filteredArray.indexOf(num) === -1).map((num) => productIds.indexOf(num));
-           console.log(result);
 
            result.forEach((index) => {
             quantities.splice(index, 1);
